@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Job Search</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Remote Job Search</h1>
+  <form method="GET">
+    <input type="text" name="q" placeholder="Search job titles..." value="{{ query }}">
+    <select name="tag">
+      <option value="">All Tags</option>
+      {% for keyword in ['python', 'javascript', 'django', 'flask', 'react', 'node', 'aws', 'remote', 'sql', 'devops'] %}
+        <option value="{{ keyword }}" {% if keyword == tag %}selected{% endif %}>{{ keyword }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Search</button>
+  </form>
+  <ul>
+    {% for job in jobs %}
+      <li><strong>{{ job.title }}</strong> at {{ job.company }}<br>
+      <a href="{{ job.link }}" target="_blank">Apply</a><br>
+      <small>Tags: {{ job.tags }}</small></li>
+    {% else %}
+      <li>No jobs found.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
